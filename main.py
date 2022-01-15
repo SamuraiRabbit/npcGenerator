@@ -1,6 +1,6 @@
 import random
 
-race_list = ["Dwarf", "Elf", "Halfling", "Human"] # "Dragonborn", "Gnome", "Half-Elf", "Half-Orc", "Tiefling"]
+race_list = ["Dwarf", "Elf", "Halfling", "Human", "Dragonborn", "Gnome", "Half-Elf", "Half-Orc", "Tiefling"]
 gender_list = ["Male", "Female", "Non-Binary", "Male", "Female", "Male", "Female", "Male", "Female" ]
 occupation_list = ["Blacksmith", "Labourer", "Sailor"]
 demeanour_list = ["Surly", "Mysterious", "Exhausted", "Happy"]
@@ -21,18 +21,38 @@ human_male_names = ["Aseir", "Bardeid", "Haseid", "Khemed", "Mehmen", "Sudeiman"
 human_female_names = ["Atala", "Ceidil", "Hama", "Jasmal", "Meilil", "Seipora", "Yasheira", "Zasheida", "Arveene", "Esvele", "Jhessail", "Kerri", "Lureene", "Miri", "Rowan", "Shandri", "Tessele", "Alethra", "Kara", "Katernin", "Mara", "Natali", "Olma", "Tana", "Zora", "Amafrey", "Betha", "Cefrey", "Kethra", "Mara", "Olga", "Silifrey", "Westra", "Arizima", "Chathi", "Nephis", "Nulara", "Murithi", "Sefris", "Thola", "Umara", "Zolis", "Fyevarra", "Hulmarra", "Immith", "Imzel", "Navarra", "Shevarra", "Tammith", "Yuldra", "Bai", "Chao", "Jia", "Lei", "Mei", "Qiao", "Shui", "Tai", "Balama", "Dona", "Faila", "Jalana", "Luisa", "Marta", "Quara", "Selise", "Vonda"]
 human_nb_names = human_male_names + human_female_names
 
+dragonborn_male_names = ["Arjhan", "Balasar", "Bharash", "Donaar", "Ghesh", "Heskan", "Kriv", "Medrash", "Mehen", "Nadarr", "Pandjed", "Patrin", "Rhogar", "Shamash", "Shedinn", "Tarhun", "Torinn"]
+dragonborn_female_names = ["Akra", "Biri", "Daar", "Farideh", "Harann", "Havilar", "Jheri", "Kava", "Korinn", "Mishann", "Nala", "Perra", "Raiann", "Sora", "Surina", "Thava", "Uadjit"]
+dragonborn_nb_names = dragonborn_male_names + dragonborn_female_names
+
+gnome_male_names = ["Alston", "Alvyn", "Boddynock", "Brocc", "Burgell", "Dimble", "Eldon", "Erky", "Fonkin", "Frug", "Gerbo", "Gimble", "Glim", "Jebeddo", "Kellen", "Namfoodle", "Orryn", "Roondar", "Seebo", "Sindri", "Warryn", "Wrenn", "Zook"]
+gnome_female_names = ["Bimpnottin", "Breena", "Caramip", "Carlin", "Donella", "Duvamil", "Ella", "Ellyjobell", "Ellywick", "Lilli", "Loopmottin", "Lorilla", "Mardnab", "Nissa", "Nyx", "Oda", "Orla", "Roywyn", "Shamil", "Tana", "Waywocket", "Zanna"]
+gnome_nb_names = gnome_male_names + gnome_female_names
+
+half_elf_male_names = elf_male_names + human_male_names
+half_elf_female_names = elf_female_names + human_female_names
+half_elf_nb_names = half_elf_male_names + half_elf_female_names
+
+half_orc_male_names = ["Dench", "Feng", "Gell", "Henk", "Holg", "Imsh", "Keth", "Krusk", "Mhurren", "Ront", "Shump", "Thokk"]
+half_orc_female_names = ["Baggi", "Emen", "Engong", "Kansif", "Myev", "Neega", "Ovak", "Ownka", "Shautha", "Sutha", "Vola", "Volen", "Yevelda"]
+half_orc_nb_names = half_orc_male_names + half_orc_female_names
+
+tiefling_male_names = ["Akmenos", "Amnon", "Barakas", "Damakos", "Ekemon", "Iados", "Kairon", "Leucis", "Melech", "Mordai", "Morthos", "Pelaios", "Skamos", "Therai"]
+tiefling_female_names = ["Akta", "Anakis", "Bryseis", "Criella", "Damaia", "Ea", "Kallista", "Lerissa", "Makaria", "Nemeia", "Orianna", "Phelaia", "Rieta"]
+tiefling_nb_names = tiefling_male_names + tiefling_female_names
+
 def generate_npc():
     race = generate_race()
+    print(f"Race: {race}")
     gender_identity = generate_gender()
+    print(f"Gender: {gender_identity}")
     name = generate_name(race, gender_identity)
+    print(f"Name: {name}")
     occupation = generate_occupation()
+    print(f"Occupation: {occupation}")
     demeanour = generate_demeanour()
-    return f"""Name: {name}
-Gender Identity: {gender_identity}
-Race: {race}
-Occupation: {occupation}
-Demeanour: {demeanour}
-"""
+    print(f"Demeanour: {demeanour}")
+
 
 def generate_race():
     race = race_list[random.randrange(0, len(race_list))]
@@ -79,11 +99,46 @@ def generate_name(race, gender_identity):
             name = human_female_names[random.randrange(0, len(human_female_names))]
         case ("Human", "Non-Binary"):
             name = human_nb_names[random.randrange(0, len(human_nb_names))]
-                     
+            
+        case ("Dragonborn", "Male"):
+            name = dragonborn_male_names[random.randrange(0, len(dragonborn_male_names))]
+        case ("Dragonborn", "Female"):
+            name = dragonborn_female_names[random.randrange(0, len(dragonborn_female_names))]
+        case ("Dragonborn", "Non-Binary"):
+            name = dragonborn_nb_names[random.randrange(0, len(dragonborn_nb_names))]
+        
+        case ("Gnome", "Male"):
+            name = gnome_male_names[random.randrange(0, len(gnome_male_names))]
+        case ("Gnome", "Female"):
+            name = gnome_female_names[random.randrange(0, len(gnome_female_names))]
+        case ("Gnome", "Non-Binary"):
+            name = gnome_nb_names[random.randrange(0, len(gnome_nb_names))]
+        
+        case ("Half-Elf", "Male"):
+            name = half_elf_male_names[random.randrange(0, len(half_elf_male_names))]
+        case ("Half-Elf", "Female"):
+            name = half_elf_female_names[random.randrange(0, len(half_elf_female_names))]
+        case ("Half-Elf", "Non-Binary"):
+            name = half_elf_nb_names[random.randrange(0, len(half_elf_nb_names))]    
+        
+        case ("Half-Orc", "Male"):
+            name = half_orc_male_names[random.randrange(0, len(half_orc_male_names))]
+        case ("Half-Orc", "Female"):
+            name = half_orc_female_names[random.randrange(0, len(half_orc_female_names))]
+        case ("Half-Orc", "Non-Binary"):
+            name = half_orc_nb_names[random.randrange(0, len(half_orc_nb_names))] 
+            
+        case ("Tiefling", "Male"):
+            name = tiefling_male_names[random.randrange(0, len(tiefling_male_names))]
+        case ("Tiefling", "Female"):
+            name = tiefling_female_names[random.randrange(0, len(tiefling_female_names))]
+        case ("Tiefling", "Non-Binary"):
+            name = tiefling_nb_names[random.randrange(0, len(tiefling_nb_names))] 
+                   
     return name
 
-print(generate_npc())
+generate_npc()
 
 # Notes
-# Populate lists with Basic Races in PHB, appropriate occupations and demeanours.
-# Extended Races in PHB
+# Expand occupations
+# Expand demeanours
